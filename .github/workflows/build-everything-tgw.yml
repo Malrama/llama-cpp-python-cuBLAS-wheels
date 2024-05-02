@@ -18,14 +18,16 @@ jobs:
     uses: ./.github/workflows/build-wheels-oobabooga.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-latest, avxver:AVX2'
+      config: 'os:windows-latest'
+      exclude: 'avxver:AVX2'
 
   build_wheels_tensorcores_windows:
     name: Tensor Core Windows
     uses: ./.github/workflows/build-wheels-tensorcores.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-latest, avxver:AVX2'
+      config: 'os:windows-latest'
+      exclude: 'avxver:AVX2'
 
 
   build_wheels_cpu:
@@ -33,4 +35,5 @@ jobs:
     uses: ./.github/workflows/build-wheels-cpu.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-latest, avxver:AVX2'
+      config: 'os:windows-latest'
+      exclude: 'avxver:AVX2'
