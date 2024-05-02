@@ -219,7 +219,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./dist/*.whl
-          tag: malrama-builds
+          tag: ${{ inputs.version }}
           file_glob: true
           make_latest: false
           overwrite: true
@@ -227,5 +227,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: steps.upload-release.outcome == 'failure'
         with:
-          name: malrama-wheels
+          name: ${{ inputs.version }}
           path: ./dist/*.whl
