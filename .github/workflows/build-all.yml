@@ -1,4 +1,4 @@
-name: Build For Me
+name: Build all wheels
 
 on:
   workflow_dispatch:
