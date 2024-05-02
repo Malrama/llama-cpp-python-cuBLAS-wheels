@@ -27,7 +27,7 @@ jobs:
     with:
       version: ${{ inputs.version }}
       config: 'os:windows-latest'
-      exclude: 'avxver:AVX, cuda:12.1.1'
+      exclude: 'avxver:AVX,cuda:12.1.1'
 
   build_wheels_tensorcores:
     name: TensorCores wheels Windows
@@ -35,4 +35,4 @@ jobs:
     with:
       version: ${{ inputs.version }}
       config: 'os:windows-latest'
-      exclude: 'avxver:AVX, cuda:12.1.1'
+      exclude: 'avxver:AVX,cuda:12.1.1'
