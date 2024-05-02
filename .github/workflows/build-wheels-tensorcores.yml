@@ -95,12 +95,12 @@ jobs:
           ref: ${{ inputs.version }}
           submodules: 'recursive'
           
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.pyver }}
         
       - name: Setup Mamba
-        uses: conda-incubator/setup-miniconda@v2.2.0
+        uses: conda-incubator/setup-miniconda@v3.0.4
         with:
           activate-environment: "build"
           python-version: ${{ matrix.pyver }}
@@ -113,7 +113,7 @@ jobs:
       - name: VS Integration Cache
         id: vs-integration-cache
         if: runner.os == 'Windows'
-        uses: actions/cache@v3.3.2
+        uses: actions/cache@v4.0.2
         with:
           path: ./MSBuildExtensions
           key: cuda-${{ matrix.cuda }}-vs-integration
@@ -214,7 +214,7 @@ jobs:
           
       - name: Upload files to a GitHub release
         id: upload-release
-        uses: svenstaro/upload-release-action@2.7.0
+        uses: svenstaro/upload-release-action@2.9.0
         continue-on-error: true
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
