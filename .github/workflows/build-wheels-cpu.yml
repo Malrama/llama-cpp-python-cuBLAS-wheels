@@ -58,7 +58,7 @@ jobs:
         run: |
           $matrix = @{
               'os' = 'ubuntu-20.04', 'windows-latest'
-              'pyver' = "3.12", "3.11"
+              'pyver' = "3.11", "3.12"
               'avx' = "AVX", "AVX2"
           }
           
