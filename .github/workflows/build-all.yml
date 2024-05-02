@@ -12,28 +12,27 @@ on:
 permissions:
   contents: write
 
-jobs:          
-  build_textgen_wheels_windows:
-    name: CUDA Wheels Windows
-    uses: ./.github/workflows/build-wheels-oobabooga.yml
-    with:
-      version: ${{ inputs.version }}
-      config: 'os:windows-latest'
-      exclude: 'avxver:AVX'
-
-  build_wheels_tensorcores_windows:
-    name: Tensor Core Windows
-    uses: ./.github/workflows/build-wheels-tensorcores.yml
-    with:
-      version: ${{ inputs.version }}
-      config: 'os:windows-latest'
-      exclude: 'avxver:AVX'
-
-
+jobs:
   build_wheels_cpu:
-    name: CPU-only Wheels
+    name: CPU wheels Windows
     uses: ./.github/workflows/build-wheels-cpu.yml
     with:
       version: ${{ inputs.version }}
       config: 'os:windows-latest'
       exclude: 'avx:AVX'
+      
+  build_wheels_cuda:
+    name: CUDA wheels Windows
+    uses: ./.github/workflows/build-wheels-cuda.yml
+    with:
+      version: ${{ inputs.version }}
+      config: 'os:windows-latest'
+      exclude: 'avxver:AVX'
+
+  build_wheels_tensorcores:
+    name: TensorCores wheels Windows
+    uses: ./.github/workflows/build-wheels-tensorcores.yml
+    with:
+      version: ${{ inputs.version }}
+      config: 'os:windows-latest'
+      exclude: 'avxver:AVX'
