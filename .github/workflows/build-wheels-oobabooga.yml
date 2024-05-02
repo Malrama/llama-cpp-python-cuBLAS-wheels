@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag of llama-cpp-python to build: v0.2.14'
-        default: 'v0.2.14'
+        description: 'Version tag of llama-cpp-python to build: v0.2.68'
+        default: 'v0.2.68'
         required: true
         type: string
       config:
@@ -21,8 +21,8 @@ on:
   workflow_call:
     inputs:
       version:
-        description: 'Version tag of llama-cpp-python to build: v0.2.14'
-        default: 'v0.2.14'
+        description: 'Version tag of llama-cpp-python to build: v0.2.68'
+        default: 'v0.2.68'
         required: true
         type: string
       config:
@@ -58,8 +58,8 @@ jobs:
         run: |
           $matrix = @{
               'os' = 'ubuntu-20.04', 'windows-latest'
-              'pyver' = "3.11", "3.10"
-              'cuda' = "11.8.0", "12.1.1"
+              'pyver' = "3.12", "3.11"
+              'cuda' = "12.1.1", "12.2.1"
               'avxver' = "AVX2", "AVX"
           }
           
