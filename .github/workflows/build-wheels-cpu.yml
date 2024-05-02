@@ -93,7 +93,7 @@ jobs:
           ref: ${{ inputs.version }}
           submodules: 'recursive'
           
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.pyver }}
           
@@ -126,7 +126,7 @@ jobs:
           
       - name: Upload files to a GitHub release
         id: upload-release
-        uses: svenstaro/upload-release-action@2.7.0
+        uses: svenstaro/upload-release-action@2.9.0
         continue-on-error: true
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
