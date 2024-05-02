@@ -227,5 +227,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: steps.upload-release.outcome == 'failure'
         with:
-          name: textgen-webui-wheels
+          name: malrama-wheels
           path: ./dist/*.whl
