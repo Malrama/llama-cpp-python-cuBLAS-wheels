@@ -221,7 +221,6 @@ jobs:
           file: ./dist/*.whl
           tag: ${{ inputs.version }}
           file_glob: true
-          make_latest: false
           overwrite: true
         
       - uses: actions/upload-artifact@v3
