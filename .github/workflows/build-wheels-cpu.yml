@@ -139,5 +139,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: steps.upload-release.outcome == 'failure'
         with:
-          name: cpu
+          name: malrama-wheels
           path: ./dist/*.whl
