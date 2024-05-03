@@ -59,7 +59,7 @@ jobs:
           $matrix = @{
               'os' = 'ubuntu-20.04', 'windows-latest'
               'pyver' = "3.11", "3.12"
-              'cuda' = "12.1.1", "12.2.2"
+              'cuda' = "12.2.2", "12.4.1"
               'avxver' = "AVX", "AVX2"
           }
           
@@ -121,7 +121,7 @@ jobs:
       - name: Get Visual Studio Integration
         if: runner.os == 'Windows' && steps.vs-integration-cache.outputs.cache-hit != 'true'
         run: |
-          if ($env:CUDAVER -eq '12.1.1') {$x = '12.1.0'} elseif ($env:CUDAVER -eq '12.2.2') {$x = '12.2.0'} else {$x = $env:CUDAVER}
+          if ($env:CUDAVER -eq '12.2.2') {$x = '12.2.0'} elseif ($env:CUDAVER -eq '12.4.1') {$x = '12.4.0'} else {$x = $env:CUDAVER}
           $links = (Invoke-RestMethod 'https://github.com/Jimver/cuda-toolkit/raw/257a101bc5c656053b5dc220126744980ef7f5b8/src/links/windows-links.ts').Trim().split().where({$_ -ne ''})
           for ($i=$q=0;$i -lt $links.count -and $q -lt 2;$i++) {if ($links[$i] -eq "'$x',") {$q++}}
           Invoke-RestMethod $links[$i].Trim("'") -OutFile 'cudainstaller.zip'
