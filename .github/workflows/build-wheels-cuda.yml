@@ -98,6 +98,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.pyver }}
+
+      # Pin VS build tools to 17.9 so builds won't fail
+      - name: Install VS2022 BuildTools 17.9.7
+        run: choco install -y visualstudio2022buildtools --version=117.9.7.0 --params "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --installChannelUri https://aka.ms/vs/17/release/180911598_-255012421/channel"
+        if: runner.os == 'Windows'
         
       - name: Setup Mamba
         uses: conda-incubator/setup-miniconda@v3.0.4
@@ -178,7 +183,6 @@ jobs:
           if ($packageVersion -gt [version]'0.2.13') {$env:CMAKE_ARGS = "-DLLAMA_NATIVE=off -DLLAMA_CUDA_FORCE_MMQ=ON $env:CMAKE_ARGS"}
           if ($env:AVXVER -eq 'AVX') {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'; $cputag = 'avx'}
           if ($env:AVXVER -eq 'basic') {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DLLAMA_AVX=off -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'; $cputag = 'basic'}
-          if ($IsWindows) {$env:CUDAFLAGS = $env:CUDAFLAGS + ' -allow-unsupported-compiler'}
           $buildtag = "+cu$cudaVersion$cputag"
           $initpath = Join-Path '.' 'llama_cpp_cuda' '__init__.py' -resolve
           $initcontent = Get-Content $initpath -raw
