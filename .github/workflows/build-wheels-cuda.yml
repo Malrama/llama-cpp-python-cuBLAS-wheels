@@ -178,6 +178,7 @@ jobs:
           if ($packageVersion -gt [version]'0.2.13') {$env:CMAKE_ARGS = "-DLLAMA_NATIVE=off -DLLAMA_CUDA_FORCE_MMQ=ON $env:CMAKE_ARGS"}
           if ($env:AVXVER -eq 'AVX') {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'; $cputag = 'avx'}
           if ($env:AVXVER -eq 'basic') {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DLLAMA_AVX=off -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'; $cputag = 'basic'}
+          if ($IsWindows) {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -allow-unsupported-compiler'}
           $buildtag = "+cu$cudaVersion$cputag"
           $initpath = Join-Path '.' 'llama_cpp_cuda' '__init__.py' -resolve
           $initcontent = Get-Content $initpath -raw
