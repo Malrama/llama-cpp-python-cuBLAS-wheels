@@ -99,11 +99,6 @@ jobs:
         with:
           python-version: ${{ matrix.pyver }}
 
-      # Pin VS build tools to 17.9 so builds won't fail
-      - name: Install VS2022 BuildTools 17.9.7
-        run: choco install -y visualstudio2022buildtools --version=117.9.7.0 --params "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --installChannelUri https://aka.ms/vs/17/release/180911598_-255012421/channel"
-        if: runner.os == 'Windows'
-        
       - name: Setup Mamba
         uses: conda-incubator/setup-miniconda@v3.0.4
         with:
