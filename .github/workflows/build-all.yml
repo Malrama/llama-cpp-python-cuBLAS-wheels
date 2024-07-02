@@ -26,7 +26,7 @@ jobs:
     uses: ./.github/workflows/build-wheels-cuda.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-lastest'
+      config: 'os:windows-latest'
       exclude: 'avxver:AVX; cuda:12.4.1'
 
   build_wheels_tensorcores:
