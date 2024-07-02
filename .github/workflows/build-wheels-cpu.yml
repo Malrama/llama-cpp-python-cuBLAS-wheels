@@ -57,7 +57,7 @@ jobs:
         id: set-matrix
         run: |
           $matrix = @{
-              'os' = 'ubuntu-20.04', 'windows-2019'
+              'os' = 'ubuntu-20.04', 'windows-latest'
               'pyver' = "3.11", "3.12"
               'avx' = "AVX", "AVX2"
           }
@@ -91,7 +91,7 @@ jobs:
         if: runner.os == 'Windows'
         uses: microsoft/setup-msbuild@v1.1
         with:
-          vs-version: '[16.11,16.12)'
+          vs-version: '[17.9,17.10)'
   
       - uses: actions/checkout@v4
         with:
@@ -114,7 +114,7 @@ jobs:
           if ($env:AVXVER -eq 'AVX') {$env:CMAKE_ARGS = '-DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'}
           if ($env:AVXVER -eq 'AVX512') {$env:CMAKE_ARGS = '-DLLAMA_AVX512=on'}
           if ($env:AVXVER -eq 'basic') {$env:CMAKE_ARGS = '-DLLAMA_AVX=off -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'}
-          if ($packageVersion -gt [version]'0.2.13') {$env:CMAKE_ARGS = "-DLLAMA_NATIVE=off $env:CMAKE_ARGS"}
+          $env:CMAKE_ARGS = "-DLLAMA_NATIVE=off $env:CMAKE_ARGS"
           $buildtag = "+cpu$env:AVXVER"
           $initpath = Join-Path '.' 'llama_cpp' '__init__.py' -resolve
           $initcontent = Get-Content $initpath -raw
