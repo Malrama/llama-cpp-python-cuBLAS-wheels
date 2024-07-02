@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag of llama-cpp-python to build: v0.2.78'
-        default: 'v0.2.78'
+        description: 'Version tag of llama-cpp-python to build: v0.2.80'
+        default: 'v0.2.80'
         required: true
         type: string
       config:
@@ -21,8 +21,8 @@ on:
   workflow_call:
     inputs:
       version:
-        description: 'Version tag of llama-cpp-python to build: v0.2.78'
-        default: 'v0.2.78'
+        description: 'Version tag of llama-cpp-python to build: v0.2.80'
+        default: 'v0.2.80'
         required: true
         type: string
       config:
@@ -57,7 +57,7 @@ jobs:
         id: set-matrix
         run: |
           $matrix = @{
-              'os' = 'ubuntu-20.04', 'windows-latest'
+              'os' = 'ubuntu-20.04', 'windows-2019'
               'pyver' = "3.11", "3.12"
               'avx' = "AVX", "AVX2"
           }
@@ -87,6 +87,12 @@ jobs:
       PCKGVER: ${{ inputs.version }}
 
     steps:
+      - name: Add MSBuild to PATH
+        if: runner.os == 'Windows'
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          vs-version: '[16.11,16.12)'
+  
       - uses: actions/checkout@v4
         with:
           repository: 'abetlen/llama-cpp-python'
