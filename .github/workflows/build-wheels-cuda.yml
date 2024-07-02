@@ -166,11 +166,8 @@ jobs:
           New-Item 'pyproject.toml' -itemType File -value $newpyproject -force
           New-Item 'CMakeLists.txt' -itemType File -value $cmakelists.Replace('llama_cpp','llama_cpp_cuda') -force
           
-          if ($packageVersion -gt [version]'0.2.13')
-          {
-            $pyScripts = (Get-ChildItem $(Join-Path '.' 'llama_cpp_cuda' '*.py'))
-            $pyScripts.fullname.foreach({New-Item $_ -itemType File -value (Get-Content $_ -raw).replace('import llama_cpp.llama','from . import llama') -force})
-          }
+          $pyScripts = (Get-ChildItem $(Join-Path '.' 'llama_cpp_cuda' '*.py'))
+          $pyScripts.fullname.foreach({New-Item $_ -itemType File -value (Get-Content $_ -raw).replace('import llama_cpp.llama','from . import llama') -force})
           
       - name: Build Wheel
         run: |
@@ -181,7 +178,7 @@ jobs:
           if ($IsLinux) {$env:LD_LIBRARY_PATH = $env:CONDA_PREFIX + '/lib:' + $env:LD_LIBRARY_PATH}
           $env:VERBOSE = '1'
           $env:CMAKE_ARGS = '-DLLAMA_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all'
-          if ($packageVersion -gt [version]'0.2.13') {$env:CMAKE_ARGS = "-DLLAMA_NATIVE=off -DLLAMA_CUDA_FORCE_MMQ=ON $env:CMAKE_ARGS"}
+          $env:CMAKE_ARGS = "-DLLAMA_NATIVE=off -DLLAMA_CUDA_FORCE_MMQ=ON $env:CMAKE_ARGS"
           if ($env:AVXVER -eq 'AVX') {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'; $cputag = 'avx'}
           if ($env:AVXVER -eq 'basic') {$env:CMAKE_ARGS = $env:CMAKE_ARGS + ' -DLLAMA_AVX=off -DLLAMA_AVX2=off -DLLAMA_FMA=off -DLLAMA_F16C=off'; $cputag = 'basic'}
           $buildtag = "+cu$cudaVersion$cputag"
