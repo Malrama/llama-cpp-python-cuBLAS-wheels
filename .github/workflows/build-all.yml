@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/build-wheels-cpu.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-2019'
+      config: 'os:windows-latest'
       exclude: 'avx:AVX'
       
   build_wheels_cuda:
@@ -26,13 +26,13 @@ jobs:
     uses: ./.github/workflows/build-wheels-cuda.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-2019'
-      exclude: 'avxver:AVX'
+      config: 'os:windows-lastest'
+      exclude: 'avxver:AVX; cuda:12.4.1'
 
   build_wheels_tensorcores:
     name: TensorCores wheels Windows
     uses: ./.github/workflows/build-wheels-tensorcores.yml
     with:
       version: ${{ inputs.version }}
-      config: 'os:windows-2019'
-      exclude: 'avxver:AVX'
+      config: 'os:windows-latest'
+      exclude: 'avxver:AVX; cuda:12.4.1'
